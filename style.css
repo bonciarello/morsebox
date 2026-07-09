@@ -1,0 +1,565 @@
+/* ============================================================
+   MorseBox — Stile principale
+   Tema ispirato alle stazioni telegrafiche: ottone, ambra, carta
+   ============================================================ */
+
+/* === CSS Custom Properties (Light Theme) === */
+:root {
+  --surface: #F7F5F2;
+  --surface-alt: #EFECE7;
+  --surface-elevated: #FFFFFF;
+  --on-surface: #1E252B;
+  --on-surface-muted: #555D68;
+  --on-surface-subtle: #7B8390;
+  --primary: #8B5A2B;
+  --primary-hover: #704520;
+  --primary-text: #FFFFFF;
+  --amber: #E8923F;
+  --amber-glow: #FBBF24;
+  --amber-bright: #FDE68A;
+  --danger: #C53030;
+  --danger-hover: #9B2C2C;
+  --danger-text: #FFFFFF;
+  --border: #D8D3CC;
+  --border-light: #E8E4DE;
+  --focus-ring: #8B5A2B;
+  --lamp-off-bg: #1F1B15;
+  --lamp-off-inner: #3D3528;
+  --lamp-bezel: #B8864E;
+  --lamp-bezel-dark: #8B6914;
+  --highlight-bg: rgba(232, 146, 63, 0.14);
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'Courier New', 'Consolas', monospace;
+  --radius-sm: 4px;
+  --radius: 8px;
+  --radius-lg: 16px;
+  --radius-full: 50%;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.07);
+  --shadow-md: 0 4px 20px rgba(0,0,0,0.09);
+  --transition-fast: 120ms ease-out;
+  --transition-base: 200ms ease-out;
+}
+
+/* === Dark Theme === */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --surface: #1A1D23;
+    --surface-alt: #22262D;
+    --surface-elevated: #282D35;
+    --on-surface: #E4E2DF;
+    --on-surface-muted: #C5CAD3;
+    --on-surface-subtle: #959CA8;
+    --primary: #D4A853;
+    --primary-hover: #BF953E;
+    --primary-text: #1A1D23;
+    --border: #353A44;
+    --border-light: #2D3239;
+    --focus-ring: #D4A853;
+    --lamp-off-bg: #1F1B15;
+    --lamp-off-inner: #3D3528;
+    --lamp-bezel: #C8964E;
+    --lamp-bezel-dark: #9A7330;
+    --highlight-bg: rgba(244, 196, 48, 0.18);
+    --danger: #E55353;
+    --danger-hover: #C94040;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.25);
+    --shadow-md: 0 4px 20px rgba(0,0,0,0.4);
+  }
+}
+
+/* === Reset & Base === */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--on-surface);
+  background: var(--surface);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* === Skip Link === */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 8px;
+  background: var(--primary);
+  color: var(--primary-text);
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  z-index: 100;
+  font-weight: 500;
+  font-size: 0.875rem;
+  text-decoration: none;
+}
+.skip-link:focus {
+  top: 8px;
+}
+
+/* === App Container === */
+.app-container {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 20px 16px 32px;
+}
+
+/* === Header === */
+.app-header {
+  text-align: center;
+  padding: 0 0 20px;
+}
+
+.app-title {
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--on-surface);
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+
+.app-subtitle {
+  font-size: 0.8125rem;
+  color: var(--on-surface-muted);
+  line-height: 1.5;
+}
+
+/* === Input Area === */
+.input-area {
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  box-shadow: var(--shadow-sm);
+}
+
+.field-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--on-surface-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  margin-bottom: 8px;
+}
+
+.message-input {
+  display: block;
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--on-surface);
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  resize: vertical;
+  min-height: 72px;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.message-input::placeholder {
+  color: var(--on-surface-subtle);
+}
+
+.message-input:focus {
+  outline: none;
+  border-color: var(--focus-ring);
+  box-shadow: 0 0 0 3px rgba(139, 90, 43, 0.15);
+}
+
+.message-input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* === Controls Bar === */
+.controls-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-end;
+  margin-top: 12px;
+}
+
+.speed-control {
+  flex: 1 1 auto;
+  min-width: 140px;
+}
+
+.speed-label {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--on-surface-muted);
+  margin-bottom: 4px;
+}
+
+.speed-slider {
+  width: 100%;
+  height: 6px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: var(--border-light);
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+}
+
+.speed-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: var(--radius-full);
+  background: var(--primary);
+  border: 2px solid var(--surface-elevated);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  cursor: pointer;
+  min-width: 44px;
+  min-height: 44px;
+}
+
+.speed-slider::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: var(--radius-full);
+  background: var(--primary);
+  border: 2px solid var(--surface-elevated);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  cursor: pointer;
+}
+
+.speed-slider:focus {
+  outline: none;
+}
+
+.speed-slider:focus::-webkit-slider-thumb {
+  box-shadow: 0 0 0 3px rgba(139, 90, 43, 0.3), 0 1px 4px rgba(0,0,0,0.2);
+}
+
+.speed-slider:focus::-moz-range-thumb {
+  box-shadow: 0 0 0 3px rgba(139, 90, 43, 0.3), 0 1px 4px rgba(0,0,0,0.2);
+}
+
+.speed-slider:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* === Buttons === */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.2;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  min-height: 44px;
+  min-width: 44px;
+  transition: background-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+  white-space: nowrap;
+  user-select: none;
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.btn-play {
+  background: var(--primary);
+  color: var(--primary-text);
+}
+
+.btn-play:hover:not(:disabled) {
+  background: var(--primary-hover);
+}
+
+.btn-play:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.btn-stop {
+  background: var(--danger);
+  color: var(--danger-text);
+}
+
+.btn-stop:hover:not(:disabled) {
+  background: var(--danger-hover);
+}
+
+.btn-stop:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+/* === Lamp Section === */
+.lamp-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 0 20px;
+}
+
+.signal-lamp {
+  width: 100px;
+  height: 100px;
+  border-radius: var(--radius-full);
+  position: relative;
+  background: radial-gradient(circle at 45% 40%, var(--lamp-off-inner) 0%, var(--lamp-off-bg) 65%, #0D0A06 100%);
+  border: 4px solid var(--lamp-bezel);
+  box-shadow:
+    0 0 0 2px var(--lamp-bezel-dark),
+    0 2px 12px rgba(0,0,0,0.25),
+    inset 0 2px 6px rgba(0,0,0,0.5),
+    inset 0 -1px 2px rgba(255,255,255,0.03);
+  transition: background 50ms ease-out, box-shadow 50ms ease-out;
+}
+
+/* Lamp ON state: bright amber glow */
+.signal-lamp.on {
+  background: radial-gradient(circle at 45% 40%, var(--amber-bright) 0%, var(--amber-glow) 30%, var(--amber) 65%, #D97706 100%);
+  box-shadow:
+    0 0 0 2px var(--lamp-bezel-dark),
+    0 0 22px var(--amber-glow),
+    0 0 55px rgba(232, 146, 63, 0.5),
+    0 0 95px rgba(232, 146, 63, 0.2),
+    0 2px 12px rgba(0,0,0,0.25),
+    inset 0 1px 4px rgba(255,255,255,0.6),
+    inset 0 -1px 2px rgba(0,0,0,0.08);
+}
+
+.lamp-inner {
+  position: absolute;
+  inset: 5px;
+  border-radius: var(--radius-full);
+  background: transparent;
+  pointer-events: none;
+}
+
+.lamp-label {
+  font-size: 0.6875rem;
+  color: var(--on-surface-subtle);
+  margin-top: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 500;
+}
+
+/* === Output Area === */
+.output-area {
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  box-shadow: var(--shadow-sm);
+}
+
+.eyebrow {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: var(--on-surface-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 10px;
+}
+
+.morse-display {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--on-surface);
+  min-height: 44px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 4px;
+  align-items: flex-start;
+}
+
+.morse-placeholder {
+  color: var(--on-surface-subtle);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-style: italic;
+  padding: 4px 0;
+}
+
+.morse-char-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 3px 6px;
+  border-radius: var(--radius-sm);
+  transition: background-color 80ms ease-out;
+  min-width: 32px;
+}
+
+.morse-char-group.highlight {
+  background: var(--highlight-bg);
+}
+
+.morse-char-letter {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--on-surface);
+  line-height: 1.2;
+}
+
+.morse-char-code {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--primary);
+  letter-spacing: 0.05em;
+  line-height: 1.3;
+}
+
+.morse-symbol {
+  transition: opacity 60ms ease-out;
+}
+
+/* === Footer === */
+.app-footer {
+  text-align: center;
+  padding: 20px 0 0;
+}
+
+.app-footer p {
+  font-size: 0.6875rem;
+  color: var(--on-surface-subtle);
+  line-height: 1.5;
+}
+
+/* === Responsive: Tablet+ === */
+@media (min-width: 480px) {
+  .app-container {
+    padding: 28px 24px 40px;
+  }
+
+  .app-title {
+    font-size: 1.75rem;
+  }
+
+  .app-subtitle {
+    font-size: 0.875rem;
+  }
+
+  .signal-lamp {
+    width: 120px;
+    height: 120px;
+    border-width: 5px;
+  }
+
+  .controls-bar {
+    gap: 16px;
+  }
+
+  .lamp-section {
+    padding: 28px 0 24px;
+  }
+
+  .morse-display {
+    gap: 14px 6px;
+  }
+}
+
+@media (min-width: 640px) {
+  .app-container {
+    padding: 36px 32px 48px;
+  }
+
+  .app-title {
+    font-size: 2rem;
+  }
+
+  .signal-lamp {
+    width: 140px;
+    height: 140px;
+  }
+
+  .input-area,
+  .output-area {
+    padding: 20px;
+  }
+
+  .morse-display {
+    font-size: 1.0625rem;
+  }
+
+  .morse-char-code {
+    font-size: 0.875rem;
+  }
+}
+
+/* === Reduced Motion === */
+@media (prefers-reduced-motion: reduce) {
+  .signal-lamp {
+    transition: none;
+  }
+
+  .btn {
+    transition: none;
+  }
+
+  .btn:active:not(:disabled) {
+    transform: none;
+  }
+
+  .message-input {
+    transition: none;
+  }
+
+  .morse-char-group {
+    transition: none;
+  }
+
+  .morse-symbol {
+    transition: none;
+  }
+}
+
+/* === Focus Visible (global) === */
+:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* Firefox focus style */
+:focus:not(:focus-visible) {
+  outline: none;
+}
